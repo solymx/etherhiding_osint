@@ -40,3 +40,37 @@ CLEARFAKE 是一個惡意 JavaScript 框架，偽裝成 Google Chrome 瀏覽器�
 #### 常見第一階段
 
 將惡意 js 放到有漏洞的 wordpress ，當受害者瀏覽，會透過惡意 js 連到智能合約拿下一段的惡意 js (CLEARSHORT 的登陸頁面)
+
+#### 被入侵的 wordpress 網站
+
+一般漏洞出現在三個地方
+1. plugin (本身有漏洞)
+2. Theme files: ex: index.php, header.php 等 (這些檔案被修改)
+3. database (直接惡意檔案注入到 db)
+
+### 文章有簡介智能合約
+
+### Etherhiding 架構
+
+取自 google 官方
+![](https://storage.googleapis.com/gweb-cloudblog-publish/images/unc5142-etherhiding-fig4a.max-1100x1100.png)
+
+## UNC5142 TTP 的演變
+
+主要有 3 個變化
+1. 用的合約越來越多
+2. 濫用 Cloudflare Pages 等合法服務託管惡意誘餌
+3. 從簡單的 Base64 編碼過渡到 AES 加密
+
+<img width="484" height="604" alt="image" src="https://github.com/user-attachments/assets/e4ddb0c5-4bfc-4bb5-baf1-d62194c37222" />
+
+上圖取自 google 官方
+
+### 多合約架構
+
+這種新架構借鑒了一種名為代理模式的合法軟體設計原則，開發者利用該原則使合約易於升級。
+
+一個穩定且不可更改的代理會將呼叫轉發到一個獨立的二級合約，該二級合約可以被替換以修復錯誤或添加新功能。
+
+這種架構採用高效率的路由-邏輯-儲存機制，每個合約都承擔特定的任務。這種設計允許快速更新攻擊的關鍵部分，
+例如目標網頁 URL 或解密金鑰，而無需修改被入侵網站上的 JavaScript 程式碼。因此，攻擊活動更加靈活，也更難被下架。
